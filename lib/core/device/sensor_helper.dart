@@ -14,7 +14,9 @@ class SensorHelperImpl implements SensorHelper {
     // The proximity_sensor package returns an int stream.
     // Usually: >0 (or 1) means NEAR. 0 means FAR.
     return ProximitySensor.events.map((int event) {
-      return event > 0; 
+      final isNear = event > 0;
+      print('Proximity sensor event: $event, isNear: $isNear');
+      return isNear;
     });
   }
 }

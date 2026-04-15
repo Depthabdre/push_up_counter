@@ -32,22 +32,20 @@ class AppTheme {
       bodyMedium: TextStyle(color: Color(0xFFAAAAAA), fontSize: 14),
     ),
 
-    // Giant, easy-to-hit buttons
+    // Sleek, clean and simple primary buttons
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xFF39FF14), // Neon green background
-        foregroundColor: Colors.black, // Black text on green button
+        backgroundColor: Colors.white, // Plain sleek white
+        foregroundColor: Colors.black, // Dark text
         minimumSize: const Size(double.infinity, 65), // Huge height
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         textStyle: const TextStyle(
           fontWeight: FontWeight.w900,
-          fontSize: 22,
-          letterSpacing: 1.2,
+          fontSize: 20,
+          letterSpacing: 1.5,
         ),
-        elevation: 10,
-        shadowColor: const Color(
-          0xFF39FF14,
-        ).withValues(alpha: 0.5), // Glowing shadow
+        elevation: 0,
+        shadowColor: Colors.transparent, // No glow
       ),
     ),
   );

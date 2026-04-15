@@ -44,14 +44,29 @@ class _HomePageState extends State<HomePage> {
             children: [
               const SizedBox(height: 40),
               // THE TITLE
-              Text(
-                'IRON REP',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: theme.primaryColor,
-                  fontSize: 54,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: -1.5,
+              ShaderMask(
+                shaderCallback: (bounds) => LinearGradient(
+                  colors: [theme.primaryColor, Colors.white],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ).createShader(bounds),
+                child: const Text(
+                  'IRON REP',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 64,
+                    fontWeight: FontWeight.w900,
+                    fontStyle: FontStyle.italic,
+                    letterSpacing: -2.0,
+                    shadows: [
+                      Shadow(
+                        color: Colors.black54,
+                        offset: Offset(2, 4),
+                        blurRadius: 4,
+                      ),
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 60),
@@ -108,29 +123,43 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildStatCard(String title, String value, ThemeData theme) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
       decoration: BoxDecoration(
-        color: theme.cardColor,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white10),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [theme.cardColor, theme.cardColor.withValues(alpha: 0.5)],
+        ),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: theme.primaryColor.withValues(alpha: 0.3),
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: theme.primaryColor.withValues(alpha: 0.05),
+            blurRadius: 15,
+            offset: const Offset(0, 10),
+          ),
+        ],
       ),
       child: Column(
         children: [
           Text(
             title,
             style: const TextStyle(
-              color: Colors.white54,
-              fontSize: 12,
+              color: Colors.white60,
+              fontSize: 14,
               fontWeight: FontWeight.bold,
-              letterSpacing: 1.5,
+              letterSpacing: 2.0,
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
           Text(
             value,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 36,
+            style: TextStyle(
+              color: Colors.grey[200], // Whitish gray 200
+              fontSize: 48,
               fontWeight: FontWeight.w900,
             ),
           ),

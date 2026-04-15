@@ -51,6 +51,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   }
 
   void _onProximityChanged(ProximityChanged event, Emitter<WorkoutState> emit) {
+    print('ProximityChanged received: isNear = ${event.isNear}');
     if (state is! WorkoutActive) return;
 
     final bool chestCameClose = event.isNear;
@@ -58,12 +59,14 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     // Logic: Far -> Near (Dipping down)
     if (chestCameClose && !_isCurrentlyNear) {
       _isCurrentlyNear = true;
+      print('Chest came close - setting isChestNear = true');
       emit(WorkoutActive(currentReps: _repCount, isChestNear: true));
     }
     // Logic: Near -> Far (Pushing up - REP COMPLETED!)
     else if (!chestCameClose && _isCurrentlyNear) {
       _isCurrentlyNear = false;
       _repCount++;
+      print('Chest moved away - REP COMPLETED! Total reps: $_repCount');
 
       _handleAudioFeedback(_repCount);
       _restartStruggleTimer(); // Reset the 5-second timer
@@ -94,7 +97,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   ) {
     if (state is WorkoutActive && _repCount > 0) {
       // Yell at them to keep going!
-      audioPlayer.playHypeSound('audio/coach_push.mp3');
+      audioPlayer.playHypeSound('audio/coach_push.wav');
     }
   }
 

@@ -19,11 +19,11 @@ class AppAudioPlayerImpl implements AppAudioPlayer {
   Future<void> init() async {
     // 1. Setup the Robot Voice (TTS)
     await _flutterTts.setLanguage("en-US");
-    
+
     // Make it sound deeper and faster for that "Gym Coach" vibe
     await _flutterTts.setSpeechRate(0.55); // Faster (Default is usually 0.5)
-    await _flutterTts.setPitch(0.8);       // Deeper (Default is 1.0)
-    
+    await _flutterTts.setPitch(0.8); // Deeper (Default is 1.0)
+
     // 2. Setup AudioPlayer settings (optional, but good practice)
     await _audioPlayer.setReleaseMode(ReleaseMode.stop);
   }
@@ -36,9 +36,10 @@ class AppAudioPlayerImpl implements AppAudioPlayer {
 
   @override
   Future<void> playHypeSound(String fileName) async {
-    // Plays the real MP3 files from your assets/audio folder
+    // Plays audio files from your assets/audio folder
+    // Supports both .mp3 and .wav formats
     // Note: The AssetSource automatically looks inside the 'assets/' folder.
-    // So if you pass "audio/ronnie_yeah_buddy.mp3", it will find it.
+    // So if you pass "audio/coach_push.wav", it will find it.
     await _audioPlayer.play(AssetSource(fileName));
   }
 }
