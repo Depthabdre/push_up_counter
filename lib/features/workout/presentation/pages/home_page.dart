@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                       end: Alignment.bottomRight,
                     ).createShader(bounds),
                     child: const Text(
-                      'IRON REP',
+                      'PushUps',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,

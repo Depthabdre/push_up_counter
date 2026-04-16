@@ -36,12 +36,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         // This makes the Smart Coach BLoC available to the entire app
-        BlocProvider<WorkoutBloc>(
-          create: (_) => sl<WorkoutBloc>(),
-        ),
+        BlocProvider<WorkoutBloc>(create: (_) => sl<WorkoutBloc>()),
       ],
       child: MaterialApp.router(
-        title: 'Iron Rep',
+        title: 'PushUps',
         theme: AppTheme.darkTheme,
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.dark,
