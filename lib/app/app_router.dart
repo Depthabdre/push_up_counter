@@ -56,18 +56,34 @@ class _GymSplashScreenState extends State<GymSplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // App Icon Image
-            Image.asset('assets/images/app_icon.png', width: 140, height: 140),
-            const SizedBox(
-              height: 48,
-            ), // Added spacing to componsate for text removal
-            const Text(
-              'DROP AND GIVE ME 20',
+            // Softly shadow the icon to match the new vibrant theme
+            Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(
+                      context,
+                    ).primaryColor.withValues(alpha: 0.3),
+                    blurRadius: 50,
+                    spreadRadius: 10,
+                  ),
+                ],
+              ),
+              child: Image.asset(
+                'assets/images/app_icon.png',
+                width: 130,
+                height: 130,
+              ),
+            ),
+            const SizedBox(height: 48),
+            Text(
+              'GET READY TO GROW ✨',
               style: TextStyle(
-                color: Colors.white54,
+                color: Theme.of(context).colorScheme.secondary,
                 fontSize: 16,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 2,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 3,
               ),
             ),
           ],

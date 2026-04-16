@@ -15,8 +15,8 @@ class ActiveWorkoutPage extends StatelessWidget {
       canPop:
           false, // Prevent them from accidentally swiping back during a workout
       child: Scaffold(
-        backgroundColor:
-            Colors.black, // Pure black saves battery on OLED screens
+        backgroundColor: theme
+            .scaffoldBackgroundColor, // Replaced pure black with the nice new midnight blue
         body: BlocConsumer<WorkoutBloc, WorkoutState>(
           listener: (context, state) {
             if (state is WorkoutFinished) {
@@ -37,7 +37,7 @@ class ActiveWorkoutPage extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 // THE BACKGROUND FLASH EFFECT
-                // If chest is near, the whole screen glows slightly green
+                // If chest is near, the whole screen glows warmly
                 AnimatedContainer(
                   duration: const Duration(
                     milliseconds: 100,
@@ -47,7 +47,10 @@ class ActiveWorkoutPage extends StatelessWidget {
                     gradient: isChestNear
                         ? RadialGradient(
                             colors: [
-                              theme.primaryColor.withValues(alpha: 0.3),
+                              theme.colorScheme.secondary.withValues(
+                                alpha: 0.4,
+                              ), // Bright sunny glow
+                              theme.primaryColor.withValues(alpha: 0.1),
                               Colors.transparent,
                             ],
                             radius: 1.5,
@@ -64,27 +67,39 @@ class ActiveWorkoutPage extends StatelessWidget {
                   curve: Curves.elasticOut,
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 150), // Sped up
-                    width: 300,
-                    height: 300,
+                    width: 280, // Slightly smaller base ring
+                    height: 280,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
                         color: isChestNear
-                            ? theme.primaryColor
-                            : theme.primaryColor.withValues(alpha: 0.1),
-                        width: isChestNear ? 8 : 2,
+                            ? theme
+                                  .colorScheme
+                                  .secondary // Sunny yellow
+                            : theme.colorScheme.tertiary.withValues(
+                                alpha: 0.3,
+                              ), // Calm teal resting state
+                        width: isChestNear ? 12 : 3, // Thicker ring inside
                       ),
                       boxShadow: isChestNear
                           ? [
                               BoxShadow(
-                                color: theme.primaryColor.withValues(
-                                  alpha: 0.5,
+                                color: theme.colorScheme.secondary.withValues(
+                                  alpha: 0.6,
                                 ),
-                                blurRadius: 40,
-                                spreadRadius: 10,
+                                blurRadius: 60,
+                                spreadRadius: 15,
                               ),
                             ]
-                          : [],
+                          : [
+                              BoxShadow(
+                                color: theme.colorScheme.tertiary.withValues(
+                                  alpha: 0.1,
+                                ),
+                                blurRadius: 30,
+                                spreadRadius: 5,
+                              ),
+                            ], // Calm resting glow
                     ),
                   ),
                 ),
@@ -112,20 +127,22 @@ class ActiveWorkoutPage extends StatelessWidget {
                           key: ValueKey<int>(currentReps),
                           style: TextStyle(
                             fontSize: 160,
-                            fontWeight: FontWeight.w900,
-                            fontStyle: FontStyle.italic,
+                            fontWeight:
+                                FontWeight.w800, // Clean weight, not italic
                             height: 1.0,
                             letterSpacing: -5.0,
-                            // Number turns bright neon green when chest is near
+                            // Number turns bright sunny yellow when chest is near
                             color: isChestNear
-                                ? theme.primaryColor
+                                ? theme.colorScheme.secondary
                                 : Colors.white,
                             shadows: [
                               Shadow(
                                 color: isChestNear
-                                    ? theme.primaryColor
-                                    : Colors.black,
-                                blurRadius: isChestNear ? 20 : 0,
+                                    ? theme.colorScheme.secondary.withValues(
+                                        alpha: 0.5,
+                                      )
+                                    : Colors.transparent,
+                                blurRadius: isChestNear ? 30 : 0,
                               ),
                             ],
                           ),
@@ -139,9 +156,9 @@ class ActiveWorkoutPage extends StatelessWidget {
                         ), // Instant feedback
                         opacity: isChestNear ? 1.0 : 0.0,
                         child: Text(
-                          'PUSH!',
+                          'PUMP IT!',
                           style: TextStyle(
-                            color: theme.primaryColor,
+                            color: theme.colorScheme.secondary,
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 5.0,
@@ -165,23 +182,23 @@ class ActiveWorkoutPage extends StatelessWidget {
                               context.read<WorkoutBloc>().add(FinishWorkout());
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors
-                                  .white10, // Subtle semi-transparent grey
+                              backgroundColor: Colors.white.withValues(
+                                alpha: 0.1,
+                              ), // Subtle semi-transparent
                               foregroundColor: Colors.white,
                               padding: const EdgeInsets.symmetric(vertical: 20),
                               shape: RoundedRectangleBorder(
-                                side: const BorderSide(
-                                  color: Colors.white24,
+                                side: BorderSide(
+                                  color: Colors.white.withValues(alpha: 0.2),
                                   width: 1,
                                 ),
                                 borderRadius: BorderRadius.circular(30),
                               ),
                               elevation: 0,
-                              shadowColor: Colors
-                                  .transparent, // Removed the glaring red glow
+                              shadowColor: Colors.transparent, // No red glow
                             ),
                             child: const Text(
-                              'FINISH & RECORD',
+                              'FINISH WORKOUT',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
