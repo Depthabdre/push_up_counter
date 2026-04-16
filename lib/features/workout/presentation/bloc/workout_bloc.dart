@@ -19,6 +19,8 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
 
   bool _isCurrentlyNear = false;
   int _repCount = 0;
+  DateTime? _lastNearTime;
+  DateTime? _lastFarTime;
 
   WorkoutBloc({
     required this.repository,
@@ -55,16 +57,29 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     if (state is! WorkoutActive) return;
 
     final bool chestCameClose = event.isNear;
+    final now = DateTime.now();
 
     // Logic: Far -> Near (Dipping down)
     if (chestCameClose && !_isCurrentlyNear) {
+      if (_lastFarTime != null &&
+          now.difference(_lastFarTime!).inMilliseconds < 150) {
+        // Debounce: ignoring a quick false trigger
+        return;
+      }
       _isCurrentlyNear = true;
+      _lastNearTime = now;
       print('Chest came close - setting isChestNear = true');
       emit(WorkoutActive(currentReps: _repCount, isChestNear: true));
     }
     // Logic: Near -> Far (Pushing up - REP COMPLETED!)
     else if (!chestCameClose && _isCurrentlyNear) {
+      if (_lastNearTime != null &&
+          now.difference(_lastNearTime!).inMilliseconds < 150) {
+        // Debounce: user can't push up in less than 150ms, likely sensor flutter
+        return;
+      }
       _isCurrentlyNear = false;
+      _lastFarTime = now;
       _repCount++;
       print('Chest moved away - REP COMPLETED! Total reps: $_repCount');
 

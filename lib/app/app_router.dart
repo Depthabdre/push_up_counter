@@ -58,20 +58,9 @@ class _GymSplashScreenState extends State<GymSplashScreen> {
           children: [
             // App Icon Image
             Image.asset('assets/images/app_icon.png', width: 140, height: 140),
-            const SizedBox(height: 24),
-            // Just a brutalist text logo for now
-            Text(
-              'IRON\nREP',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Theme.of(context).primaryColor,
-                fontSize: 64,
-                fontWeight: FontWeight.w900,
-                height: 0.9, // Tight line spacing
-                letterSpacing: -2,
-              ),
-            ),
-            const SizedBox(height: 20),
+            const SizedBox(
+              height: 48,
+            ), // Added spacing to componsate for text removal
             const Text(
               'DROP AND GIVE ME 20',
               style: TextStyle(

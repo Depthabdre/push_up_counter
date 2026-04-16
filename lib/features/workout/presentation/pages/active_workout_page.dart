@@ -39,7 +39,9 @@ class ActiveWorkoutPage extends StatelessWidget {
                 // THE BACKGROUND FLASH EFFECT
                 // If chest is near, the whole screen glows slightly green
                 AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
+                  duration: const Duration(
+                    milliseconds: 100,
+                  ), // Sped up for fast reps
                   curve: Curves.easeOut,
                   decoration: BoxDecoration(
                     gradient: isChestNear
@@ -57,11 +59,11 @@ class ActiveWorkoutPage extends StatelessWidget {
 
                 // Animated Rings when interacting
                 AnimatedScale(
-                  duration: const Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 150), // Sped up
                   scale: isChestNear ? 0.8 : 1.0,
                   curve: Curves.elasticOut,
                   child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 150), // Sped up
                     width: 300,
                     height: 300,
                     decoration: BoxDecoration(
@@ -95,7 +97,9 @@ class ActiveWorkoutPage extends StatelessWidget {
 
                       // THE MASSIVE COUNTER
                       AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 150),
+                        duration: const Duration(
+                          milliseconds: 100,
+                        ), // Very fast number change
                         transitionBuilder:
                             (Widget child, Animation<double> animation) {
                               return ScaleTransition(
@@ -130,7 +134,9 @@ class ActiveWorkoutPage extends StatelessWidget {
 
                       const SizedBox(height: 20),
                       AnimatedOpacity(
-                        duration: const Duration(milliseconds: 200),
+                        duration: const Duration(
+                          milliseconds: 100,
+                        ), // Instant feedback
                         opacity: isChestNear ? 1.0 : 0.0,
                         child: Text(
                           'PUSH!',
