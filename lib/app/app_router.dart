@@ -56,6 +56,9 @@ class _GymSplashScreenState extends State<GymSplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // App Icon Image
+            Image.asset('assets/images/app_icon.png', width: 140, height: 140),
+            const SizedBox(height: 24),
             // Just a brutalist text logo for now
             Text(
               'IRON\nREP',
